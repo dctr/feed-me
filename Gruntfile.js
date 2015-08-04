@@ -12,9 +12,14 @@ module.exports = function Gruntfile(grunt) {
         sourceMap: true
       },
       dist: {
-        files: {
-          'dist/app.js': 'src/app.js'
-        }
+        files: [
+          {
+            expand: true,     // Enable dynamic expansion.
+            cwd: 'src/',      // Src matches are relative to this path.
+            src: ['**/*.js'], // Actual pattern(s) to match.
+            dest: 'dist/',   // Destination path prefix.
+          },
+        ]
       }
     }
   });
