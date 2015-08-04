@@ -1,6 +1,6 @@
 (function (global) {
     var addTagForUrl,
-        buildUrl,
+        buildYqlUrl,
         handler,
         initialize,
         output,
@@ -10,7 +10,7 @@
         document.getElementsByTagName('body')[0].appendChild(scriptTag(url));
     };
 
-    buildUrl = function buildUrl(url) {
+    buildYqlUrl = function buildYqlUrl(url) {
         var base, query, params;
         base = 'https://query.yahooapis.com/v1/public/yql?q=';
         query = 'select * from xml where url="' + url + '"';
@@ -18,7 +18,7 @@
         console.log(base + encodeURIComponent(query) + params);
         return base + encodeURIComponent(query) + params;
     };
-    
+
     handler = function handler(result) {
         console.log(result);
         output.innerHTML = JSON.stringify(result.query.results);
@@ -29,7 +29,7 @@
         global.feedMe.handler = global.feedMe.handler || handler;
 
         output = document.getElementById('output');
-        addTagForUrl(buildUrl('http://www.slideshare.net/rss/user/nashjain'));
+        addTagForUrl(buildYqlUrl('http://rss.golem.de/rss.php?feed=ATOM1.0'));
     };
 
     scriptTag = function scriptTag(url) {
