@@ -5,15 +5,15 @@ export function getFeed(url) {
   const promiseKey = encodeURIComponent(url);
   let feedPromiseResolve;
   let appendedChild;
+  let body = document.getElementsByTagName('body')[0];
 
   function cleanUp(url) {
     delete window[jsonPHandlerPrefix + promiseKey];
-    document.removeChild(appendedChild);
-    // TODO remove url after loaded.
+    body.removeChild(appendedChild);
   }
 
   function addTagForUrl(url) {
-    appendedChild = document.getElementsByTagName('body')[0].appendChild(createScriptTag(url));
+    appendedChild = body.appendChild(createScriptTag(url));
   }
 
   function jsonPHandler(result) {
