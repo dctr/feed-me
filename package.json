@@ -17,7 +17,7 @@
     "bower": "bower",
     "build": "grunt",
     "postinstall": "npm upgrade && bower install && bower upgrade",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",

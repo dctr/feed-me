@@ -1,4 +1,4 @@
-import getFeed from 'feedFactory.js';
+import {getFeed} from 'feedFactory.js';
 
 let outputArea = document.getElementById('output');
 
