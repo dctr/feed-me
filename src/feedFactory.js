@@ -1,3 +1,6 @@
+import AtomFeed from 'AtomFeed.js';
+import RssFeed from 'RssFeed.js';
+
 const jsonPCallbackPrefix = 'feedMeJsonP';
 const jsonPTimeout = 10000;
 
@@ -19,7 +22,7 @@ export default url => {
   }
 
   function jsonPHandler(result) {
-    resolvePromise(JSON.stringify(result.query.results));
+    resolvePromise(result.query.results);
   }
 
   window[jsonPCallback] = window[jsonPCallback] || jsonPHandler;
@@ -29,8 +32,13 @@ export default url => {
 
     resolvePromise = data => {
       resolved = true;
-      // TODO: Resolve with parsed data (either RSS class or ATOM class).
-      resolve(data);
+      if (data.hasOwnProperty('rss')) {
+        resolve(new RssFeed(data));
+      } else if (data.hasOwnProperty('feed')) {
+        resolve(new AtomFeed(data));
+      } else {
+        reject(new Error('Invalid data'));
+      }
       cleanUp(url);
     };
 
