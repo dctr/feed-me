@@ -4,9 +4,7 @@ module.exports = function Gruntfile(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
-    eslint: {
-      target: ['src/**.js']
-    },
+
     babel: {
       options: {
         sourceMap: true
@@ -14,18 +12,34 @@ module.exports = function Gruntfile(grunt) {
       dist: {
         files: [
           {
-            expand: true,     // Enable dynamic expansion.
-            cwd: 'src/',      // Src matches are relative to this path.
-            src: ['**/*.js'], // Actual pattern(s) to match.
-            dest: 'dist/',   // Destination path prefix.
-          },
+            expand: true,
+            cwd: 'src/',
+            src: ['**/*.js'],
+            dest: 'dist/'
+          }
         ]
       }
-    }
+    },
+    copy: {
+      html: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/',
+            src: ['**/*.html'],
+            dest: 'dist/'
+          }
+        ]
+      }
+    },
+    eslint: {
+      target: ['src/**.js']
+    },
   });
 
   grunt.registerTask('default', [
     'eslint',
+    'copy',
     'babel'
   ]);
 };
