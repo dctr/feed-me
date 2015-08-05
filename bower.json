@@ -1,0 +1,24 @@
+{
+  "name": "feed-me",
+  "version": "0.0.1",
+  "homepage": "https://github.com/dctr/feed-me",
+  "authors": [
+    "David Christ <chd+dev@genitopia.org>"
+  ],
+  "description": "Stateless feed aggregator",
+  "main": "src/app.js",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "rss",
+    "atom",
+    "news",
+    "feed",
+    "stateless"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "system.js": "~0.18.6"
+  }
+}

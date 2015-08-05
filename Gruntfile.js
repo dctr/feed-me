@@ -7,6 +7,7 @@ module.exports = function Gruntfile(grunt) {
 
     babel: {
       options: {
+        modules: 'system',
         sourceMap: true
       },
       dist: {
@@ -35,11 +36,17 @@ module.exports = function Gruntfile(grunt) {
     eslint: {
       target: ['src/**.js']
     },
+    wiredep: {
+      task: {
+        src: ['dist/**/*.html']
+      }
+    }
   });
 
   grunt.registerTask('default', [
     'eslint',
     'copy',
-    'babel'
+    'babel',
+    'wiredep'
   ]);
 };
