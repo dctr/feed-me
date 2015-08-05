@@ -1,7 +1,7 @@
 const jsonPCallbackPrefix = 'feedMeJsonP';
 const jsonPTimeout = 10000;
 
-export function getFeed(url) {
+export default url => {
   let appendedChild;
   let body = document.getElementsByTagName('body')[0];
   let resolvePromise;
