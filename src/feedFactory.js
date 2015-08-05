@@ -19,8 +19,6 @@ export function getFeed(url) {
   }
 
   function jsonPHandler(result) {
-    console.log('Received feed');
-    console.log(result);
     resolvePromise(JSON.stringify(result.query.results));
   }
 
@@ -29,19 +27,16 @@ export function getFeed(url) {
   return new Promise((resolve, reject) => {
     let resolved = false;
 
-    console.log('Build feed for: ' + url + ' with key ' + jsonPCallback);
-
-    resolvePromise = function resolvePromise(data) {
+    resolvePromise = data => {
       resolved = true;
       // TODO: Resolve with parsed data (either RSS class or ATOM class).
       resolve(data);
       cleanUp(url);
     };
 
-    setTimeout(
-      function rejectAfterTimeout() {
+    setTimeout(() => {
         if (!resolved) {
-          reject();
+          reject(new Error('Request timeout'));
           cleanUp(url);
         }
       },
@@ -59,7 +54,6 @@ function buildYqlUrl(url, callback) {
   let query = 'select * from xml where url="' + url + '"';
   let params = '&format=json&diagnostics=false&callback=' + callback;
 
-  console.log(base + encodeURIComponent(query) + params);
   return base + encodeURIComponent(query) + params;
 }
 
