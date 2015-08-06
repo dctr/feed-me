@@ -4,7 +4,6 @@ module.exports = function Gruntfile(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
-
     babel: {
       options: {
         modules: 'system',
@@ -21,6 +20,7 @@ module.exports = function Gruntfile(grunt) {
         ]
       }
     },
+    clean: ["dist"],
     copy: {
       html: {
         files: [
@@ -45,6 +45,7 @@ module.exports = function Gruntfile(grunt) {
 
   grunt.registerTask('default', [
     'eslint',
+    'clean',
     'copy',
     'babel',
     'wiredep'
