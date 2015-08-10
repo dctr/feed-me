@@ -43,11 +43,19 @@ module.exports = function Gruntfile(grunt) {
     }
   });
 
-  grunt.registerTask('default', [
-    'eslint',
+  grunt.registerTask('test', [
+    'eslint'
+  ])
+
+  grunt.registerTask('build', [
     'clean',
     'copy',
     'babel',
     'wiredep'
+  ]);
+
+  grunt.registerTask('default', [
+    'test',
+    'build'
   ]);
 };

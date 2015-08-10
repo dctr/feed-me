@@ -5,14 +5,20 @@ const jsonPCallbackPrefix = 'feedMeJsonP';
 const jsonPTimeout = 10000;
 
 export default url => {
-  let appendedChild;
-  let body = document.getElementsByTagName('body')[0];
-  let resolvePromise;
-  let now = new Date();
+  let appendedChild,
+    body,
+    now,
+    resolvePromise;
 
-  const jsonPCallback = jsonPCallbackPrefix + now.getMinutes().toString() + now.getSeconds().toString() + now.getMilliseconds().toString();
+  body = document.getElementsByTagName('body')[0];
+  now = new Date();
 
-  function cleanUp(url) {
+  const jsonPCallback = jsonPCallbackPrefix +
+    now.getMinutes().toString() +
+    now.getSeconds().toString() +
+    now.getMilliseconds().toString();
+
+  function cleanUp() {
     delete window[jsonPCallback];
     body.removeChild(appendedChild);
   }
@@ -28,7 +34,9 @@ export default url => {
   window[jsonPCallback] = window[jsonPCallback] || jsonPHandler;
 
   return new Promise((resolve, reject) => {
-    let resolved = false;
+    let resolved;
+
+    resolved = false;
 
     resolvePromise = data => {
       resolved = true;
@@ -42,7 +50,8 @@ export default url => {
       cleanUp(url);
     };
 
-    setTimeout(() => {
+    setTimeout(
+      () => {
         if (!resolved) {
           reject(new Error('Request timeout'));
           cleanUp(url);
@@ -52,21 +61,25 @@ export default url => {
     );
 
     addScriptTagForUrl(buildYqlUrl(url, jsonPCallback));
-
   });
-
-}
+};
 
 function buildYqlUrl(url, callback) {
   const base = 'https://query.yahooapis.com/v1/public/yql?q=';
-  let query = 'select * from xml where url="' + url + '"';
-  let params = '&format=json&diagnostics=false&callback=' + callback;
+
+  let params,
+    query;
+
+  query = 'select * from xml where url="' + url + '"';
+  params = '&format=json&diagnostics=false&callback=' + callback;
 
   return base + encodeURIComponent(query) + params;
 }
 
 function createScriptTag(url) {
-  var result = document.createElement('script');
+  let result;
+
+  result = document.createElement('script');
   result.setAttribute('src', url);
   return result;
 }
