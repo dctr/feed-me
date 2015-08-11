@@ -1,14 +1,26 @@
 import AbstractFeed from 'AbstractFeed.js';
-import RssFeedEntries from 'RssFeedEntries.js';
 import contentExtractor from 'contentExtractor.js';
 
 export default class RssFeed extends AbstractFeed {
   constructor(feed) {
     super(feed);
-    this.source = this.feed.rss.channel;
+    this.source = feed.rss.channel;
   }
   getEntries() {
-    return new RssFeedEntries(this.source.item);
+    let result;
+
+    result = [];
+
+    this.source.item.forEach(entry => {
+      result.push({
+        abstract: contentExtractor(entry.description),
+        dateTime: contentExtractor(entry.pubDate),
+        link: contentExtractor(entry.link),
+        title: contentExtractor(entry.title)
+      });
+    });
+
+    return result;
   }
   getTitle() {
     return contentExtractor(this.source.title);

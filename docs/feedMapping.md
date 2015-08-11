@@ -5,9 +5,11 @@ This file describes, how the XML elements of RSS and ATOM feeds are mapped to th
 * **INTERNAL REPRESENTATION**
   * **RSS XPATH**
   * **ATOM XPATH**
+
 * feed/title
   * rss/channel/title
   * feed/title
+
 * feed/entry[]
   * rss/channel/item[]
   * feed/entry[]
@@ -20,3 +22,6 @@ This file describes, how the XML elements of RSS and ATOM feeds are mapped to th
 * feed/entry[]/dateTime
   * rss/channel/item[]/pubDate
   * feed/entry[]/updated
+* feed/entry[]/abstract
+  * rss/channel/item[]/description
+  * feed/entry[]/summary

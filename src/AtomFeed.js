@@ -1,5 +1,4 @@
 import AbstractFeed from 'AbstractFeed.js';
-import AtomFeedEntries from 'AbstractFeedEntries.js';
 import contentExtractor from 'contentExtractor.js';
 
 export default class AtomFeed extends AbstractFeed {
@@ -8,7 +7,20 @@ export default class AtomFeed extends AbstractFeed {
     this.source = feed.feed;
   }
   getEntries() {
-    return new AtomFeedEntries(this.source.entry);
+    let result;
+
+    result = [];
+
+    this.source.entry.forEach(entry => {
+      result.push({
+        abstract: contentExtractor(entry.summary),
+        dateTime: contentExtractor(entry.updated),
+        link: contentExtractor(entry.link),
+        title: contentExtractor(entry.title)
+      });
+    });
+
+    return result;
   }
   getTitle() {
     return contentExtractor(this.source.title);

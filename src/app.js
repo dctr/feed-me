@@ -14,20 +14,20 @@ newPTag = content => {
 };
 
 feedFactory('http://rss.golem.de/rss.php?feed=ATOM1.0').then(data => {
-  console.log('ATOM');
-  console.log(data);
+  console.log('ATOM-');
+  console.log(data.getEntries());
   outputArea.appendChild(newPTag(data));
-  outputArea.appendChild(newPTag(data.getTitle()));
+  outputArea.appendChild(newPTag(data.getEntries()[0].title));
 }).catch(error => {
   console.log('Promise rejected');
   console.log(error);
 });
 
 feedFactory('http://www.heise.de/newsticker/heise-atom.xml').then(data => {
-  console.log('RSS');
-  console.log(data);
+  console.log('RSS-');
+  console.log(data.getEntries());
   outputArea.appendChild(newPTag(data));
-  outputArea.appendChild(newPTag(data.getTitle()));
+  outputArea.appendChild(newPTag(data.getEntries()[0].title));
 }).catch(error => {
   console.log('Promise rejected');
   console.log(error);
