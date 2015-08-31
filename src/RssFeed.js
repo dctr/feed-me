@@ -4,14 +4,14 @@ import contentExtractor from 'contentExtractor.js';
 export default class RssFeed extends AbstractFeed {
   constructor(feed) {
     super(feed);
-    this.source = feed.rss.channel;
+    this._source = feed.rss.channel;
   }
   getEntries() {
     let result;
 
     result = [];
 
-    this.source.item.forEach(entry => {
+    this._source.item.forEach(entry => {
       result.push({
         abstract: contentExtractor(entry.description),
         dateTime: new Date(contentExtractor(entry.pubDate)),
@@ -24,6 +24,6 @@ export default class RssFeed extends AbstractFeed {
     return result;
   }
   getTitle() {
-    return contentExtractor(this.source.title);
+    return contentExtractor(this._source.title);
   }
 }

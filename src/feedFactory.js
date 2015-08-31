@@ -5,14 +5,13 @@ const jsonPCallbackPrefix = 'feedMeJsonP';
 const jsonPTimeout = 10000;
 
 export default url => {
+  const jsonPCallback = jsonPCallbackPrefix + Math.round(Math.random() * 1000000);
+
   let appendedChild,
     body,
     resolvePromise;
 
   body = document.getElementsByTagName('body')[0];
-
-  const jsonPCallback = jsonPCallbackPrefix +
-    Math.round(Math.random() * 1000000);
 
   function cleanUp() {
     delete window[jsonPCallback];
@@ -36,21 +35,23 @@ export default url => {
 
     resolvePromise = data => {
       resolved = true;
-      if (data.hasOwnProperty('rss')) {
+      if (!data) {
+        reject(new Error('No data'));
+      } else if (data.hasOwnProperty('rss')) {
         resolve(new RssFeed(data));
       } else if (data.hasOwnProperty('feed')) {
         resolve(new AtomFeed(data));
       } else {
         reject(new Error('Invalid data'));
       }
-      cleanUp(url);
+      cleanUp();
     };
 
-    setTimeout(
+    window.setTimeout(
       () => {
         if (!resolved) {
           reject(new Error('Request timeout'));
-          cleanUp(url);
+          cleanUp();
         }
       },
       jsonPTimeout
