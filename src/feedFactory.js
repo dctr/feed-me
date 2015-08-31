@@ -7,11 +7,9 @@ const jsonPTimeout = 10000;
 export default url => {
   let appendedChild,
     body,
-    now,
     resolvePromise;
 
   body = document.getElementsByTagName('body')[0];
-  now = new Date();
 
   const jsonPCallback = jsonPCallbackPrefix +
     Math.round(Math.random() * 1000000);

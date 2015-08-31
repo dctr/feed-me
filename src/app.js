@@ -19,9 +19,17 @@ newOutputTag = content => {
 };
 
 printFeeds = feedArray => {
-  console.log('Printing feeds: ' + feedArray.length);
+  console.log('Sorting entries: ' + feeds.length);
+  feeds.sort((a, b) => {
+    return b.dateTime - a.dateTime;
+  });
+  console.log('Printing entries: ' + feedArray.length);
   feedArray.forEach(currentValue => {
-    outputArea.appendChild(newOutputTag(currentValue.feedTitle + ' -- <strong>' + currentValue.title + '</strong> -- ' + currentValue.dateTime.toLocaleString()));
+    outputArea.appendChild(newOutputTag(
+      currentValue.feedTitle +
+      ' -- <strong>' + currentValue.title + '</strong> -- ' +
+      currentValue.dateTime.toLocaleString()
+    ));
   });
 };
 
@@ -37,11 +45,6 @@ printFeeds = feedArray => {
     countDownLatch--;
     console.log(feeds.length + ' -- ' + countDownLatch);
     if (countDownLatch === 0) {
-      console.log('Sorting ' + typeof feeds);
-      feeds.sort((a, b) => {
-        console.log('Returning ' + b.dateTime + ' - ' + a.dateTime + ' = ' + (b.dateTime - a.dateTime));
-        return b.dateTime - a.dateTime;
-      });
       printFeeds(feeds);
     }
   });
