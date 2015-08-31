@@ -17,6 +17,7 @@
   },
   "scripts": {
     "bower": "bower",
+    "deploy": "grunt && git subtree push --prefix dist origin gh-pages",
     "develop": "watchy -w src -- grunt build",
     "grunt": "grunt",
     "postinstall": "npm upgrade && bower install && bower upgrade",

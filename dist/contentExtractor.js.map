@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/contentExtractor.js"],"names":[],"mappings":";;;;;;yBAAe,UAAA,OAAO,EAAI;AACxB,eAAO,OAAO,CAAC,OAAO,IAAI,OAAO,CAAC;OACnC","file":"src/contentExtractor.js","sourcesContent":["export default element => {\n  return element.content || element;\n};\n"]}
