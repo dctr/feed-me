@@ -34,8 +34,8 @@ printFeeds = feedArray => {
 };
 
 [
-  'http://newspresso.gulli.com/rss',
   'http://rss.golem.de/rss.php?feed=ATOM1.0',
+  'http://ticker.gulli.com/rss',
   'http://www.bbc.co.uk/blogs/doctorwho/atom',
   'http://www.heise.de/developer/rss/news-atom.xml',
   'http://www.heise.de/netze/rss/netze-atom.xml',
