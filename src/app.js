@@ -24,11 +24,11 @@ printFeeds = feedArray => {
     return b.dateTime - a.dateTime;
   });
   console.log('Printing entries: ' + feedArray.length);
-  feedArray.forEach(currentValue => {
+  feedArray.forEach(feed => {
     outputArea.appendChild(newOutputTag(
-      currentValue.feedTitle +
-      ' -- <strong><a href="' + currentValue.link + '" target="_blank">' + currentValue.title + '</a></strong> -- ' +
-      currentValue.dateTime.toLocaleString()
+      feed.feedTitle +
+      ' -- <strong><a href="' + feed.link + '" target="_blank">' + feed.title + '</a></strong> -- ' +
+      feed.dateTime.toLocaleString()
     ));
   });
 };
@@ -51,8 +51,15 @@ printFeeds = feedArray => {
   console.log('Fetching: ' + url);
   feedFactory(url).then(data => {
     feeds = feeds.concat(data.getEntries());
-    countDownLatch--;
     console.log(feeds.length + ' -- ' + countDownLatch);
+    countDownLatch--;
+    if (countDownLatch === 0) {
+      printFeeds(feeds);
+    }
+  }).catch(reason => {
+    console.log('Could not load ' + url);
+    console.log(reason);
+    countDownLatch--;
     if (countDownLatch === 0) {
       printFeeds(feeds);
     }

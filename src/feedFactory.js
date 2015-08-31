@@ -23,6 +23,10 @@ export default url => {
   }
 
   function jsonPHandler(result) {
+    if (!(result.query && result.query.results)) {
+      console.log('Error while retrieving data');
+      console.log(result);
+    }
     resolvePromise(result.query.results);
   }
 
