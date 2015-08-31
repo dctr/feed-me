@@ -55,13 +55,6 @@ module.exports = function Gruntfile(grunt) {
   );
 
   grunt.registerTask(
-    'develop',
-    [
-      'build'
-    ]
-  );
-
-  grunt.registerTask(
     'test', [
       'eslint'
     ]

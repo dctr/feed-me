@@ -12,10 +12,12 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-eslint": "^17.0.0",
     "grunt-wiredep": "^2.0.0",
-    "load-grunt-tasks": "^3.2.0"
+    "load-grunt-tasks": "^3.2.0",
+    "watchy": "^0.6.2"
   },
   "scripts": {
     "bower": "bower",
+    "develop": "watchy -w src -- grunt build",
     "grunt": "grunt",
     "postinstall": "npm upgrade && bower install && bower upgrade",
     "test": "grunt test"
