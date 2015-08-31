@@ -37,29 +37,6 @@ module.exports = function Gruntfile(grunt) {
       eslint: {
         target: ['src/**.js']
       },
-      watch: {
-        bower: {
-          files: ['bower.json'],
-          tasks: ['wiredep']
-        },
-        gruntfile: {
-          files: ['Gruntfile.js']
-        },
-        livereload: {
-          files: ['dist/**/*'],
-          options: {
-            livereload: true
-          }
-        },
-        markup: {
-          files: ['src/**/*.html'],
-          tasks: ['copy:markup', 'wiredep']
-        },
-        scripts: {
-          files: ['src/**/*.js'],
-          tasks: ['babel']
-        }
-      },
       wiredep: {
         task: {
           src: ['dist/**/*.html']
@@ -80,8 +57,7 @@ module.exports = function Gruntfile(grunt) {
   grunt.registerTask(
     'develop',
     [
-      'build',
-      'watch'
+      'build'
     ]
   );
 
