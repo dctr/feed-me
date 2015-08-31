@@ -13,6 +13,9 @@ This file describes, how the XML elements of RSS and ATOM feeds are mapped to th
 * feed/entry[]
   * rss/channel/item[]
   * feed/entry[]
+* feed/entry[]/feedTitle
+  * rss/channel/title
+  * feed/title
 * feed/entry[]/title
   * rss/channel/item[]/title
   * feed/entry[]/title

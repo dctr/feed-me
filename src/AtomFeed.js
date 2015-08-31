@@ -14,7 +14,8 @@ export default class AtomFeed extends AbstractFeed {
     this.source.entry.forEach(entry => {
       result.push({
         abstract: contentExtractor(entry.summary),
-        dateTime: contentExtractor(entry.updated),
+        dateTime: new Date(contentExtractor(entry.updated)),
+        feedTitle: this.getTitle(),
         link: contentExtractor(entry.link),
         title: contentExtractor(entry.title)
       });

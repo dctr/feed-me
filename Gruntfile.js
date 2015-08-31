@@ -48,8 +48,8 @@ module.exports = function Gruntfile(grunt) {
   grunt.registerTask(
     'build', [
       'clean',
-      'copy',
       'babel',
+      'copy',
       'wiredep'
     ]
   );

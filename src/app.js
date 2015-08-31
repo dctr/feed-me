@@ -1,11 +1,16 @@
 import feedFactory from 'feedFactory.js';
 
-let newPTag,
-  outputArea;
+let countDownLatch,
+  feeds,
+  newOutputTag,
+  outputArea,
+  printFeeds;
 
+countDownLatch = 0;
+feeds = [];
 outputArea = document.getElementById('output');
 
-newPTag = content => {
+newOutputTag = content => {
   let result;
 
   result = document.createElement('p');
@@ -13,22 +18,31 @@ newPTag = content => {
   return result;
 };
 
-feedFactory('http://rss.golem.de/rss.php?feed=ATOM1.0').then(data => {
-  console.log('ATOM-');
-  console.log(data.getEntries());
-  outputArea.appendChild(newPTag(data));
-  outputArea.appendChild(newPTag(data.getEntries()[0].title));
-}).catch(error => {
-  console.log('Promise rejected');
-  console.log(error);
-});
+printFeeds = feedArray => {
+  console.log('Printing feeds: ' + feedArray.length);
+  feedArray.forEach(currentValue => {
+    outputArea.appendChild(newOutputTag(currentValue.feedTitle + ' -- <strong>' + currentValue.title + '</strong> -- ' + currentValue.dateTime.toLocaleString()));
+  });
+};
 
-feedFactory('http://www.heise.de/newsticker/heise-atom.xml').then(data => {
-  console.log('RSS-');
-  console.log(data.getEntries());
-  outputArea.appendChild(newPTag(data));
-  outputArea.appendChild(newPTag(data.getEntries()[0].title));
-}).catch(error => {
-  console.log('Promise rejected');
-  console.log(error);
+[
+  'http://rss.golem.de/rss.php?feed=ATOM1.0',
+  'http://www.heise.de/newsticker/heise-atom.xml',
+  'https://www.tagesschau.de/xml/rss2'
+].forEach(url => {
+  countDownLatch++;
+  console.log('Fetching: ' + url);
+  feedFactory(url).then(data => {
+    feeds = feeds.concat(data.getEntries());
+    countDownLatch--;
+    console.log(feeds.length + ' -- ' + countDownLatch);
+    if (countDownLatch === 0) {
+      console.log('Sorting ' + typeof feeds);
+      feeds.sort((a, b) => {
+        console.log('Returning ' + b.dateTime + ' - ' + a.dateTime + ' = ' + (b.dateTime - a.dateTime));
+        return b.dateTime - a.dateTime;
+      });
+      printFeeds(feeds);
+    }
+  });
 });

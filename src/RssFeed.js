@@ -14,7 +14,8 @@ export default class RssFeed extends AbstractFeed {
     this.source.item.forEach(entry => {
       result.push({
         abstract: contentExtractor(entry.description),
-        dateTime: contentExtractor(entry.pubDate),
+        dateTime: new Date(contentExtractor(entry.pubDate)),
+        feedTitle: this.getTitle(),
         link: contentExtractor(entry.link),
         title: contentExtractor(entry.title)
       });

@@ -14,9 +14,7 @@ export default url => {
   now = new Date();
 
   const jsonPCallback = jsonPCallbackPrefix +
-    now.getMinutes().toString() +
-    now.getSeconds().toString() +
-    now.getMilliseconds().toString();
+    Math.round(Math.random() * 1000000);
 
   function cleanUp() {
     delete window[jsonPCallback];
