@@ -21,6 +21,13 @@ module.exports = function Gruntfile(grunt) {
           ]
         }
       },
+      bower_main: {
+        copy: {
+          options: {
+            dest: 'dist/bower_components'
+          }
+        }
+      },
       clean: ["dist"],
       copy: {
         markup: {
@@ -50,6 +57,7 @@ module.exports = function Gruntfile(grunt) {
     'build', [
       'clean',
       'babel',
+      'bower_main',
       'copy',
       'wiredep'
     ]
