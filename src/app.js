@@ -20,8 +20,8 @@ newOutputTag = content => {
 
 printFeeds = feedArray => {
   console.log('Sorting entries: ' + feeds.length);
-  feeds.sort((a, b) => {
-    return b.dateTime - a.dateTime;
+  feeds.sort((val1, val2) => {
+    return val2.dateTime - val1.dateTime;
   });
   console.log('Printing entries: ' + feedArray.length);
   feedArray.forEach(feed => {

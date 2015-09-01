@@ -1,8 +1,8 @@
 import AtomFeed from 'AtomFeed.js';
 import RssFeed from 'RssFeed.js';
 
-const jsonPCallbackPrefix = 'feedMeJsonP';
-const jsonPTimeout = 10000;
+const jsonPCallbackPrefix = 'feedMeJsonP',
+  jsonPTimeout = 10000;
 
 export default url => {
   const jsonPCallback = jsonPCallbackPrefix + Math.round(Math.random() * 1000000);
