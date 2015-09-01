@@ -14,7 +14,7 @@ System.register([], function (_export) {
         function AbstractFeed(feed) {
           _classCallCheck(this, AbstractFeed);
 
-          this.feed = feed;
+          this._feed = feed;
         }
 
         _createClass(AbstractFeed, [{
