@@ -1,6 +1,6 @@
 {
   "name": "feed-me",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Stateless feed aggregator",
   "main": "src/app.js",
   "devDependencies": {
