@@ -33,13 +33,13 @@ System.register(['AtomFeed.js', 'RssFeed.js'], function (_export) {
       jsonPTimeout = 10000;
 
       _export('default', function (url) {
+        var jsonPCallback = jsonPCallbackPrefix + Math.round(Math.random() * 1000000);
+
         var appendedChild = undefined,
             body = undefined,
             resolvePromise = undefined;
 
         body = document.getElementsByTagName('body')[0];
-
-        var jsonPCallback = jsonPCallbackPrefix + Math.round(Math.random() * 1000000);
 
         function cleanUp() {
           delete window[jsonPCallback];
@@ -51,6 +51,10 @@ System.register(['AtomFeed.js', 'RssFeed.js'], function (_export) {
         }
 
         function jsonPHandler(result) {
+          if (!(result.query && result.query.results)) {
+            console.log('Error while retrieving data');
+            console.log(result);
+          }
           resolvePromise(result.query.results);
         }
 
@@ -63,20 +67,22 @@ System.register(['AtomFeed.js', 'RssFeed.js'], function (_export) {
 
           resolvePromise = function (data) {
             resolved = true;
-            if (data.hasOwnProperty('rss')) {
+            if (!data) {
+              reject(new Error('No data'));
+            } else if (data.hasOwnProperty('rss')) {
               resolve(new RssFeed(data));
             } else if (data.hasOwnProperty('feed')) {
               resolve(new AtomFeed(data));
             } else {
               reject(new Error('Invalid data'));
             }
-            cleanUp(url);
+            cleanUp();
           };
 
-          setTimeout(function () {
+          window.setTimeout(function () {
             if (!resolved) {
               reject(new Error('Request timeout'));
-              cleanUp(url);
+              cleanUp();
             }
           }, jsonPTimeout);
 

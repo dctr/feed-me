@@ -25,7 +25,7 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
           _classCallCheck(this, AtomFeed);
 
           _get(Object.getPrototypeOf(AtomFeed.prototype), 'constructor', this).call(this, feed);
-          this.source = feed.feed;
+          this._source = feed.feed;
         }
 
         _createClass(AtomFeed, [{
@@ -37,7 +37,7 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
 
             result = [];
 
-            this.source.entry.forEach(function (entry) {
+            this._source.entry.forEach(function (entry) {
               result.push({
                 abstract: contentExtractor(entry.summary),
                 dateTime: new Date(contentExtractor(entry.updated)),
@@ -52,7 +52,7 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
         }, {
           key: 'getTitle',
           value: function getTitle() {
-            return contentExtractor(this.source.title);
+            return contentExtractor(this._source.title);
           }
         }]);
 

@@ -25,7 +25,7 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
           _classCallCheck(this, RssFeed);
 
           _get(Object.getPrototypeOf(RssFeed.prototype), 'constructor', this).call(this, feed);
-          this.source = feed.rss.channel;
+          this._source = feed.rss.channel;
         }
 
         _createClass(RssFeed, [{
@@ -37,7 +37,7 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
 
             result = [];
 
-            this.source.item.forEach(function (entry) {
+            this._source.item.forEach(function (entry) {
               result.push({
                 abstract: contentExtractor(entry.description),
                 dateTime: new Date(contentExtractor(entry.pubDate)),
@@ -52,7 +52,7 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
         }, {
           key: 'getTitle',
           value: function getTitle() {
-            return contentExtractor(this.source.title);
+            return contentExtractor(this._source.title);
           }
         }]);
 
