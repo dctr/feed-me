@@ -39,7 +39,8 @@ module.exports = function Gruntfile(grunt) {
       },
       wiredep: {
         task: {
-          src: ['dist/**/*.html']
+          src: ['dist/**/*.html'],
+          ignorePath: /\.\.\//
         }
       }
     }
