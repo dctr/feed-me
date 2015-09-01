@@ -4,14 +4,14 @@ import contentExtractor from 'contentExtractor.js';
 export default class AtomFeed extends AbstractFeed {
   constructor(feed) {
     super(feed);
-    this.source = feed.feed;
+    this._source = feed.feed;
   }
   getEntries() {
     let result;
 
     result = [];
 
-    this.source.entry.forEach(entry => {
+    this._source.entry.forEach(entry => {
       result.push({
         abstract: contentExtractor(entry.summary),
         dateTime: new Date(contentExtractor(entry.updated)),
@@ -24,6 +24,6 @@ export default class AtomFeed extends AbstractFeed {
     return result;
   }
   getTitle() {
-    return contentExtractor(this.source.title);
+    return contentExtractor(this._source.title);
   }
 }
