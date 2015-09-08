@@ -4,41 +4,48 @@
   <!--link rel="author" href="humans.txt">
   <link rel="shortcut icon" href="favicon.ico"/>
   <link rel="stylesheet" href=".css"-->
-  
+
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
   <meta charset="utf-8">
 
   <title>Feed Me</title>
 </head>
-<body>
+<body id="top">
 
-<!--
-<header>
-    <nav>
-        <ul>
-            <li></li>
-        </ul>
-    </nav>
-</header>
--->
+<div class="container">
+  <header>
+    <h1 class="text-center">Feed Me
+      <small><a href="#about">#about</a></small>
+    </h1>
+  </header>
 
-<div role="main" class="container">
-  <h1 class="text-center">Feed Me</h1>
+  <main>
+    <table class="table table-striped">
+      <tbody id="output">
+      <tr>
+        <th>Source</th>
+        <th>Headline</th>
+        <th>Date & Time</th>
+      </tr>
+      </tbody>
+    </table>
+  </main>
 
-  <table class="table table-striped">
-    <tbody id="output">
-    <tr>
-      <th>Source</th>
-      <th>Headline</th>
-      <th>Date & Time</th>
-    </tr>
-    </tbody>
-  </table>
+  <footer id="about">
+    <h2 class="text-center">About
+      <small><a href="#top">#top</a></small>
+    </h2>
+    <p>
+      <em>Feed Me</em> is a stateless feed aggregator. No account with login, no cookies. Everything it has to know is
+      supplied via the URL's query string.
+    </p>
+
+    <p>
+      To generate a query string, there is a <a href="generator.html">helper page</a>. Just append the query string
+      generated with that page to the URL of <em>Feed Me</em>, of course separated by a question mark. E.g.: http://feed.me?query-string
+    </p>
+  </footer>
 </div>
-
-<!--<footer></footer>-->
-
-<!-- Scripts -->
 
 <!-- bower:js -->
 <!-- endbower -->
