@@ -25,8 +25,8 @@
       <h2>URL Parameter to Link Array (WIP)</h2>
 
       <form action="">
-        <textarea id="p2a-in" class="form-control" rows="10" readonly></textarea>
-        <button id="p2a-execute" type="button" class="btn btn-default" disabled>Transform</button>
+        <textarea id="p2a-in" class="form-control" rows="10"></textarea>
+        <button id="p2a-execute" type="button" class="btn btn-default">Transform</button>
         <textarea id="p2a-out" class="form-control" rows="10" readonly></textarea>
       </form>
     </div>
@@ -42,11 +42,12 @@
   p2aOut = document.getElementById('p2a-out');
 
   a2pExecute.onclick = function a2p() {
-    a2pOut.value = window.encodeURIComponent(a2pIn.value);
+    console.log(JSON.stringify(JSON.parse(a2pIn.value)));
+    a2pOut.value = window.encodeURIComponent(JSON.stringify(JSON.parse(a2pIn.value)));
   };
 
   p2aExecute.onclick = function p2a() {
-    p2aOut.value = JSON.stringify(JSON.parse(window.decodeURIComponent(p2aIn)), 2);
+    p2aOut.value = JSON.stringify(JSON.parse(window.decodeURIComponent(p2aIn.value)), null, '  ');
   };
 </script>
 
