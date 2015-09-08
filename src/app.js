@@ -2,6 +2,8 @@ import feedFactory from 'feedFactory.js';
 
 let countDownLatch,
   feeds,
+  fetchFeed,
+  inputFeeds,
   newOutputTag,
   outputArea,
   printFeeds;
@@ -9,6 +11,26 @@ let countDownLatch,
 countDownLatch = 0;
 feeds = [];
 outputArea = document.getElementById('output');
+
+fetchFeed = url => {
+  countDownLatch++;
+  console.log('Fetching: ' + url);
+  feedFactory(url).then(data => {
+    feeds = feeds.concat(data.entries);
+    console.log(feeds.length + ' -- ' + countDownLatch);
+    countDownLatch--;
+    if (countDownLatch === 0) {
+      printFeeds(feeds);
+    }
+  }).catch(reason => {
+    console.log('Could not load ' + url);
+    console.log(reason);
+    countDownLatch--;
+    if (countDownLatch === 0) {
+      printFeeds(feeds);
+    }
+  });
+};
 
 newOutputTag = (feedTitle, title, link, dateTime) => {
   let col1,
@@ -50,7 +72,7 @@ printFeeds = feedArray => {
   });
 };
 
-[
+inputFeeds = [
   'http://rss.golem.de/rss.php?feed=ATOM1.0',
   'http://ticker.gulli.com/rss',
   'http://www.bbc.co.uk/blogs/doctorwho/atom',
@@ -63,22 +85,6 @@ printFeeds = feedArray => {
   'https://mailbox.org/feed/',
   'https://www.archlinux.org/feeds/news/',
   'https://www.tagesschau.de/xml/rss2'
-].forEach(url => {
-  countDownLatch++;
-  console.log('Fetching: ' + url);
-  feedFactory(url).then(data => {
-    feeds = feeds.concat(data.entries);
-    console.log(feeds.length + ' -- ' + countDownLatch);
-    countDownLatch--;
-    if (countDownLatch === 0) {
-      printFeeds(feeds);
-    }
-  }).catch(reason => {
-    console.log('Could not load ' + url);
-    console.log(reason);
-    countDownLatch--;
-    if (countDownLatch === 0) {
-      printFeeds(feeds);
-    }
-  });
-});
+];
+
+inputFeeds.forEach(fetchFeed);
