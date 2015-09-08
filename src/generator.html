@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <meta charset="UTF-8">
+
+  <title>Feed Me - Generator</title>
+</head>
+<body>
+
+<div role="main" class="container">
+  <h1 class="text-center">Feed Me - Generator</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Link Array to URL Parameter</h2>
+
+      <form>
+        <textarea id="a2p-in" class="form-control" rows="10"></textarea>
+        <button id="a2p-execute" type="button" class="btn btn-default">Transform</button>
+        <textarea id="a2p-out" class="form-control" rows="10" readonly></textarea>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h2>URL Parameter to Link Array (WIP)</h2>
+
+      <form action="">
+        <textarea id="p2a-in" class="form-control" rows="10" readonly></textarea>
+        <button id="p2a-execute" type="button" class="btn btn-default" disabled>Transform</button>
+        <textarea id="p2a-out" class="form-control" rows="10" readonly></textarea>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  a2pExecute = document.getElementById('a2p-execute');
+  a2pIn = document.getElementById('a2p-in');
+  a2pOut = document.getElementById('a2p-out');
+  p2aExecute = document.getElementById('p2a-execute');
+  p2aIn = document.getElementById('p2a-in');
+  p2aOut = document.getElementById('p2a-out');
+
+  a2pExecute.onclick = function a2p() {
+    a2pOut.value = window.encodeURIComponent(a2pIn.value);
+  };
+
+  p2aExecute.onclick = function p2a() {
+    p2aOut.value = JSON.stringify(JSON.parse(window.decodeURIComponent(p2aIn)), 2);
+  };
+</script>
+
+</body>
+</html>
