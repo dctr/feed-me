@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--link rel="author" href="humans.txt">
-    <link rel="shortcut icon" href="favicon.ico"/>
-    <link rel="stylesheet" href=".css"-->
-    <meta charset="utf-8">
+  <!--link rel="author" href="humans.txt">
+  <link rel="shortcut icon" href="favicon.ico"/>
+  <link rel="stylesheet" href=".css"-->
+  <meta charset="utf-8">
 
-    <title>Feed Me</title>
+  <title>Feed Me</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 </head>
 <body>
 
@@ -20,10 +21,18 @@
 </header>
 -->
 
-<div role="main">
-    <h1>Feed Me</h1>
+<div role="main" class="container">
+  <h1 class="text-center">Feed Me</h1>
 
-    <p id="output"></p>
+  <table class="table table-striped">
+    <tbody id="output">
+    <tr>
+      <th>Source</th>
+      <th>Headline</th>
+      <th>Date & Time</th>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <footer></footer>
@@ -35,9 +44,11 @@
 
 <script>
   // set our baseURL reference path
-  System.config({
-    baseURL: '.'
-  });
+  System.config(
+    {
+      baseURL: '.'
+    }
+  );
 
   // loads entry point
   System.import('app.js');

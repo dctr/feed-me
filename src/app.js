@@ -10,11 +10,27 @@ countDownLatch = 0;
 feeds = [];
 outputArea = document.getElementById('output');
 
-newOutputTag = content => {
-  let result;
+newOutputTag = (feedTitle, title, link, dateTime) => {
+  let col1,
+    col2,
+    col2Content,
+    col3,
+    result;
 
-  result = document.createElement('p');
-  result.innerHTML = content;
+  col1 = document.createElement('td');
+  col1.innerHTML = feedTitle;
+  col2 = document.createElement('td');
+  col2Content = document.createElement('a');
+  col2Content.title = title;
+  col2Content.href = link;
+  col2Content.appendChild(document.createTextNode(title));
+  col2.appendChild(col2Content);
+  col3 = document.createElement('td');
+  col3.innerHTML = dateTime.toLocaleString();
+  result = document.createElement('tr');
+  result.appendChild(col1);
+  result.appendChild(col2);
+  result.appendChild(col3);
   return result;
 };
 
@@ -26,9 +42,10 @@ printFeeds = feedArray => {
   console.log('Printing entries: ' + feedArray.length);
   feedArray.forEach(feed => {
     outputArea.appendChild(newOutputTag(
-      feed.feedTitle +
-      ' -- <strong><a href="' + feed.link + '" target="_blank">' + feed.title + '</a></strong> -- ' +
-      feed.dateTime.toLocaleString()
+      feed.feedTitle,
+      feed.title,
+      feed.link,
+      feed.dateTime
     ));
   });
 };
