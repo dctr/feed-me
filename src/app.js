@@ -3,10 +3,10 @@ import feedFactory from 'feedFactory.js';
 let countDownLatch,
   feeds,
   fetchFeed,
-  inputFeeds,
   newOutputTag,
   outputArea,
-  printFeeds;
+  printFeeds,
+  queryObject;
 
 countDownLatch = 0;
 feeds = [];
@@ -58,36 +58,43 @@ newOutputTag = (feedTitle, title, link, dateTime) => {
 
 printFeeds = feedArray => {
   console.log('Sorting entries: ' + feeds.length);
-  feeds.sort((val1, val2) => {
-    return val2.dateTime - val1.dateTime;
-  });
+  feeds.sort(
+    (val1, val2) => {
+      return val2.dateTime - val1.dateTime;
+    }
+  );
   console.log('Printing entries: ' + feedArray.length);
   feedArray.forEach(feed => {
-    outputArea.appendChild(newOutputTag(
-      feed.feedTitle,
-      feed.title,
-      feed.link,
-      feed.dateTime
-    ));
+    outputArea.appendChild(
+      newOutputTag(
+        feed.feedTitle,
+        feed.title,
+        feed.link,
+        feed.dateTime
+      )
+    );
   });
 };
 
-inputFeeds = JSON.parse(window.decodeURIComponent(window.location.search.slice(1)));
-// [
-//  'http://rss.golem.de/rss.php?feed=ATOM1.0',
-//  'http://ticker.gulli.com/rss',
-//  'http://www.bbc.co.uk/blogs/doctorwho/atom',
-//  'http://www.heise.de/developer/rss/news-atom.xml',
-//  'http://www.heise.de/netze/rss/netze-atom.xml',
-//  'http://www.heise.de/newsticker/heise-atom.xml',
-//  'http://www.heise.de/open/news/news-atom.xml',
-//  'http://www.heise.de/security/news/news-atom.xml',
-//  'http://www.pro-linux.de/rss/1/4/atom_alles.xml',
-//  'https://mailbox.org/feed/',
-//  'https://www.archlinux.org/feeds/news/',
-//  'https://www.tagesschau.de/xml/rss2'
-// ];
+queryObject = JSON.parse(window.decodeURIComponent(window.location.search.slice(1)));
 
-console.log(inputFeeds);
+//{
+//  "feeds": [
+//    "http://rss.golem.de/rss.php?feed=ATOM1.0",
+//    "http://ticker.gulli.com/rss",
+//    "http://www.bbc.co.uk/blogs/doctorwho/atom",
+//    "http://www.heise.de/developer/rss/news-atom.xml",
+//    "http://www.heise.de/netze/rss/netze-atom.xml",
+//    "http://www.heise.de/newsticker/heise-atom.xml",
+//    "http://www.heise.de/open/news/news-atom.xml",
+//    "http://www.heise.de/security/news/news-atom.xml",
+//    "http://www.pro-linux.de/rss/1/4/atom_alles.xml",
+//    "https://mailbox.org/feed/",
+//    "https://www.archlinux.org/feeds/news/",
+//    "https://www.tagesschau.de/xml/rss2"
+//  ]
+//}
 
-inputFeeds.forEach(fetchFeed);
+console.log(queryObject);
+
+queryObject.feeds.forEach(fetchFeed);
