@@ -9,45 +9,59 @@
 <body>
 
 <div role="main" class="container">
-  <h1 class="text-center">Feed Me - Generator</h1>
+  <h1 class="text-center">Feed Me - Query Parameter Generator</h1>
+
+  <p>This page allows to transform a parameter JSON object for <em>Feed Me</em> into a query parameter string.</p>
+  <p>To use the query parameter, call <em>feed-me-ur</em>?queryParameter.</p>
 
   <div class="row">
     <div class="col-md-6">
-      <h2>Link Array to URL Parameter</h2>
+      <h2>JSON Object to Query Parameter</h2>
 
       <form>
-        <textarea id="a2p-in" class="form-control" rows="10"></textarea>
-        <button id="a2p-execute" type="button" class="btn btn-default">Transform</button>
-        <textarea id="a2p-out" class="form-control" rows="10" readonly></textarea>
+        <div class="form-group">
+          <label for="j2q-in">JSON Object</label>
+          <textarea id="j2q-in" class="form-control" rows="10"></textarea>
+        </div>
+        <button id="j2q-execute" type="button" class="btn btn-default btn-block">Transform</button>
+        <div class="form-group">
+          <label for="j2q-out">Query Parameter</label>
+          <textarea id="j2q-out" class="form-control" rows="10" readonly></textarea>
+        </div>
       </form>
     </div>
     <div class="col-md-6">
-      <h2>URL Parameter to Link Array (WIP)</h2>
+      <h2>Query Parameter to JSON Object</h2>
 
       <form action="">
-        <textarea id="p2a-in" class="form-control" rows="10"></textarea>
-        <button id="p2a-execute" type="button" class="btn btn-default">Transform</button>
-        <textarea id="p2a-out" class="form-control" rows="10" readonly></textarea>
+        <div class="form-group">
+          <label for="q2j-in">Query Parameter</label>
+          <textarea id="q2j-in" class="form-control" rows="10"></textarea>
+        </div>
+        <button id="q2j-execute" type="button" class="btn btn-default btn-block">Transform</button>
+        <div class="form-group">
+          <label for="q2j-out">JSON Object</label>
+          <textarea id="q2j-out" class="form-control" rows="10" readonly></textarea>
+        </div>
       </form>
     </div>
   </div>
 </div>
 
 <script>
-  a2pExecute = document.getElementById('a2p-execute');
-  a2pIn = document.getElementById('a2p-in');
-  a2pOut = document.getElementById('a2p-out');
-  p2aExecute = document.getElementById('p2a-execute');
-  p2aIn = document.getElementById('p2a-in');
-  p2aOut = document.getElementById('p2a-out');
+  j2qExecute = document.getElementById('j2q-execute');
+  j2qIn = document.getElementById('j2q-in');
+  j2qOut = document.getElementById('j2q-out');
+  q2jExecute = document.getElementById('q2j-execute');
+  q2jIn = document.getElementById('q2j-in');
+  q2jOut = document.getElementById('q2j-out');
 
-  a2pExecute.onclick = function a2p() {
-    console.log(JSON.stringify(JSON.parse(a2pIn.value)));
-    a2pOut.value = window.encodeURIComponent(JSON.stringify(JSON.parse(a2pIn.value)));
+  j2qExecute.onclick = function j2q() {
+    j2qOut.value = window.encodeURIComponent(JSON.stringify(JSON.parse(j2qIn.value)));
   };
 
-  p2aExecute.onclick = function p2a() {
-    p2aOut.value = JSON.stringify(JSON.parse(window.decodeURIComponent(p2aIn.value)), null, '  ');
+  q2jExecute.onclick = function q2j() {
+    q2jOut.value = JSON.stringify(JSON.parse(window.decodeURIComponent(q2jIn.value)), null, '  ');
   };
 </script>
 
