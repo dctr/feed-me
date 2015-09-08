@@ -67,7 +67,7 @@ printFeeds = feedArray => {
   countDownLatch++;
   console.log('Fetching: ' + url);
   feedFactory(url).then(data => {
-    feeds = feeds.concat(data.getEntries());
+    feeds = feeds.concat(data.entries);
     console.log(feeds.length + ' -- ' + countDownLatch);
     countDownLatch--;
     if (countDownLatch === 0) {

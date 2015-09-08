@@ -1,11 +1,10 @@
 export default class AbstractFeed {
-  constructor(feed) {
-    this._feed = feed;
+  constructor() {
   }
-  getEntries() {
+  get entries() {
     throw new Error('Pseudo-abstract class, method not implmemented');
   }
-  getTitle() {
+  get title() {
     throw new Error('Pseudo-abstract class, method not implmemented');
   }
 }
