@@ -1,18 +1,8 @@
 # Feed Me
 
-**Note: This project is still under heavily development, things might change unexpectedly.**
-
-## Table of contents
-
-- [About](#about)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+*Feed Me* is a stateless feed aggregator. 
 
 ## About
-
-*Feed Me* is a stateless feed aggregator. 
 
 **What:** *Feed Me* is stateless, as is does not require any form of persistence.
 No account with login, no cookies or local storage, no sessions.
