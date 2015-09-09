@@ -2,9 +2,20 @@
 
 *Feed Me* is a stateless feed aggregator. 
 
-**Note:** 
-This project is still under heavily development.
-Working builds are merged to master and published through gh-pages.
+**Note: This project is still under heavily development, things might change unexpectedly.**
+
+This app is [hosted via GitHub pages](http://dev.genitopia.org/feed-me/).
+
+# Table of contents
+
+- [About][]
+- [Installation][]
+- [Usage][]
+- [Contributing][]
+- [Credits][]
+- [License][]
+
+# About
 
 ## What
 
@@ -36,3 +47,21 @@ Common feed aggregators store read-state in your account's settings.
 Arguably, if you clear you browsing history or are at another computer, that information is lost.
 
 The app is client-only. That allows it to be hosted through GitHub pages.
+
+# Installation
+
+# Usage
+
+# Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request.
+
+# Credits
+
+# License
+
+*Feed Me* is released under the [MIT license](/LICENSE).
