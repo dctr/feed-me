@@ -24,7 +24,7 @@ createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
     ;
 
   col1 = document.createElement('td');
-  col1.innerText = feedTitle;
+  col1.textContent = feedTitle;
 
   col2 = document.createElement('td');
   col2Content = document.createElement('a');
@@ -33,7 +33,7 @@ createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
   col2.appendChild(col2Content);
 
   col3 = document.createElement('td');
-  col3.innerText = dateTime.toLocaleString();
+  col3.textContent = dateTime.toLocaleString();
 
   result = document.createElement('tr');
   result.appendChild(col1);
