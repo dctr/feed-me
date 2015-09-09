@@ -8,12 +8,12 @@ This app is [hosted via GitHub pages](http://dev.genitopia.org/feed-me/).
 
 # Table of contents
 
-- [About][]
-- [Installation][]
-- [Usage][]
-- [Contributing][]
-- [Credits][]
-- [License][]
+- [About](#about)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
 
 # About
 
