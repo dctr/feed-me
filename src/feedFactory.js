@@ -1,34 +1,47 @@
 import AtomFeed from 'AtomFeed.js';
 import RssFeed from 'RssFeed.js';
 
-const jsonPCallbackPrefix = 'feedMeJsonP',
-  jsonPTimeout = 10000;
+const
+  jsonPCallbackPrefix = 'feedMeJsonP',
+  jsonPTimeout = 10000
+  ;
+
+let
+  buildYqlUrl,
+  createScriptTag
+  ;
 
 export default url => {
   const jsonPCallback = jsonPCallbackPrefix + Math.round(Math.random() * 1000000);
 
-  let appendedChild,
+  let
+    appendedScriptTag,
+    appendScriptTag,
     body,
-    resolvePromise;
+    cleanUp,
+    jsonPHandler,
+    rejectPromise,
+    resolvePromise
+    ;
 
   body = document.getElementsByTagName('body')[0];
 
-  function cleanUp() {
+  appendScriptTag = url => {
+    appendedScriptTag = body.appendChild(createScriptTag(url));
+  };
+
+  cleanUp = () => {
     delete window[jsonPCallback];
-    body.removeChild(appendedChild);
-  }
+    body.removeChild(appendedScriptTag);
+  };
 
-  function addScriptTagForUrl(url) {
-    appendedChild = body.appendChild(createScriptTag(url));
-  }
-
-  function jsonPHandler(result) {
-    if (!(result.query && result.query.results)) {
-      console.log('Error while retrieving data');
-      console.log(result);
+  jsonPHandler = result => {
+    if (result && result.query && result.query.results) {
+      resolvePromise(result.query.results);
+    } else {
+      rejectPromise('No query result data', result);
     }
-    resolvePromise(result.query.results);
-  }
+  };
 
   window[jsonPCallback] = window[jsonPCallback] || jsonPHandler;
 
@@ -37,50 +50,65 @@ export default url => {
 
     resolved = false;
 
+    rejectPromise = (reason, data) => {
+      let error;
+
+      resolved = true;
+
+      error = new Error(reason);
+      error.data = data;
+      reject(error);
+
+      cleanUp();
+    };
+
     resolvePromise = data => {
       resolved = true;
-      if (!data) {
-        reject(new Error('No data'));
-      } else if (data.hasOwnProperty('rss')) {
+
+      if (data.hasOwnProperty('rss')) {
         resolve(new RssFeed(data));
       } else if (data.hasOwnProperty('feed')) {
         resolve(new AtomFeed(data));
       } else {
-        reject(new Error('Invalid data'));
+        rejectPromise('Invalid data', data);
       }
+
       cleanUp();
     };
 
     window.setTimeout(
       () => {
         if (!resolved) {
-          reject(new Error('Request timeout'));
-          cleanUp();
+          rejectPromise('Request timeout', {});
         }
       },
       jsonPTimeout
     );
 
-    addScriptTagForUrl(buildYqlUrl(url, jsonPCallback));
+    appendScriptTag(buildYqlUrl(url, jsonPCallback));
   });
 };
 
-function buildYqlUrl(url, callback) {
+buildYqlUrl = (url, callback) => {
   const base = 'https://query.yahooapis.com/v1/public/yql?q=';
 
-  let params,
-    query;
+  let
+    params,
+    query
+    ;
 
   query = 'select * from xml where url="' + url + '"';
   params = '&format=json&diagnostics=false&callback=' + callback;
 
-  return base + encodeURIComponent(query) + params;
-}
+  console.log(base + encodeURIComponent(query) + params);
 
-function createScriptTag(url) {
+  return base + encodeURIComponent(query) + params;
+};
+
+createScriptTag = url => {
   let result;
 
   result = document.createElement('script');
   result.setAttribute('src', url);
   return result;
-}
+};

@@ -1,84 +1,105 @@
 import feedFactory from 'feedFactory.js';
 
-let countDownLatch,
-  feeds,
+let
+  collectedEntries,
+  createOutputTag,
+  fetchCountDownLatch,
   fetchFeed,
-  newOutputTag,
-  outputArea,
-  printFeeds,
-  queryObject;
+  main,
+  outputElement,
+  printFeedEntries
+  ;
 
-countDownLatch = 0;
-feeds = [];
-outputArea = document.getElementById('output');
+collectedEntries = [];
+fetchCountDownLatch = 0;
+outputElement = document.getElementById('output');
 
-fetchFeed = url => {
-  countDownLatch++;
-  console.log('Fetching: ' + url);
-  feedFactory(url).then(data => {
-    feeds = feeds.concat(data.entries);
-    console.log(feeds.length + ' -- ' + countDownLatch);
-    countDownLatch--;
-    if (countDownLatch === 0) {
-      printFeeds(feeds);
-    }
-  }).catch(reason => {
-    console.log('Could not load ' + url);
-    console.log(reason);
-    countDownLatch--;
-    if (countDownLatch === 0) {
-      printFeeds(feeds);
-    }
-  });
-};
-
-newOutputTag = (feedTitle, title, link, dateTime) => {
-  let col1,
+createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
+  let
+    col1,
     col2,
     col2Content,
     col3,
-    result;
+    result
+    ;
 
   col1 = document.createElement('td');
-  col1.innerHTML = feedTitle;
+  col1.textContent = feedTitle;
+
   col2 = document.createElement('td');
   col2Content = document.createElement('a');
-  col2Content.title = title;
   col2Content.href = link;
-  col2Content.appendChild(document.createTextNode(title));
+  col2Content.appendChild(document.createTextNode(entryTitle));
   col2.appendChild(col2Content);
+
   col3 = document.createElement('td');
-  col3.innerHTML = dateTime.toLocaleString();
+  col3.textContent = dateTime.toLocaleString();
+
   result = document.createElement('tr');
   result.appendChild(col1);
   result.appendChild(col2);
   result.appendChild(col3);
+
   return result;
 };
 
-printFeeds = feedArray => {
-  console.log('Sorting entries: ' + feeds.length);
-  feeds.sort(
-    (val1, val2) => {
-      return val2.dateTime - val1.dateTime;
+fetchFeed = url => {
+  console.time(url);
+  fetchCountDownLatch++;
+  feedFactory(url).then(data => {
+    console.timeEnd(url);
+    console.log('Received %i entries for %s', data.entries.length, url);
+    collectedEntries = collectedEntries.concat(data.entries);
+    fetchCountDownLatch--;
+    if (fetchCountDownLatch === 0) {
+      printFeedEntries();
     }
-  );
-  console.log('Printing entries: ' + feedArray.length);
-  feedArray.forEach(feed => {
-    outputArea.appendChild(
-      newOutputTag(
-        feed.feedTitle,
-        feed.title,
-        feed.link,
-        feed.dateTime
-      )
-    );
+  }).catch(reason => {
+    console.timeEnd(url);
+    console.error('Could not load %s; reason: %s, %o', url, reason.message, reason.data);
+    fetchCountDownLatch--;
+    if (fetchCountDownLatch === 0) {
+      printFeedEntries();
+    }
   });
 };
 
-queryObject = JSON.parse(window.decodeURIComponent(window.location.search.slice(1)));
+printFeedEntries = () => {
+  console.log('Sorting %i entries', collectedEntries.length);
+  collectedEntries.sort((val1, val2) => {
+    return val2.dateTime - val1.dateTime;
+  });
+  console.log('Printing entries');
+  collectedEntries.forEach(feedEntry => {
+    outputElement.appendChild(createOutputTag(
+      feedEntry.feedTitle,
+      feedEntry.title,
+      feedEntry.link,
+      feedEntry.dateTime
+    ));
+  });
+};
 
-//{
+main = () => {
+  let
+    queryObject,
+    queryString
+    ;
+
+  queryString = window.location.search.slice(1);
+  if (!queryString) {
+    console.log('No query provided');
+    return;
+  }
+
+  queryObject = JSON.parse(window.decodeURIComponent(queryString));
+  console.log('Query object: %o', queryObject);
+  queryObject.feeds.forEach(fetchFeed);
+};
+
+main();
+
+// myDefaultFeeds = {
 //  "feeds": [
 //    "http://rss.golem.de/rss.php?feed=ATOM1.0",
 //    "http://ticker.gulli.com/rss",
@@ -93,8 +114,4 @@ queryObject = JSON.parse(window.decodeURIComponent(window.location.search.slice(
 //    "https://www.archlinux.org/feeds/news/",
 //    "https://www.tagesschau.de/xml/rss2"
 //  ]
-//}
-
-console.log(queryObject);
-
-queryObject.feeds.forEach(fetchFeed);
+// }
