@@ -31,7 +31,7 @@ This project uses self-contained Node.js scripts, run `npm run` to get a complet
 
 All state is supplied to *Feed Me* via an encoded JSON object as URL query string.
 
-1. **Create JSON object**
+1. **Configure**
   
   ```
   {
@@ -42,16 +42,17 @@ All state is supplied to *Feed Me* via an encoded JSON object as URL query strin
   }
   ```
 
-2. **Encode JSON object**
+2. **Encode**
   
-  The JSON object has to be single line and special characters have to be escaped. 
+  The JSON object has to be single line and URL special characters have to be escaped. 
   You can use the [generator](http://dev.genitopia.org/feed-me/generator.html) provided with this project.
   All it does is a simple `encodeURIComponent(JSON.stringify(JSON.parse(j2qIn.value)))`.
 
-3. **Append as query string**
+3. **Append**
 
-  The encoded JSON object can now be appened to the URL as query string, 
-  e. g. `http://feed.me/?%7B%22feeds%22%3A%5B%22http%3A%2F%2Fexmample.com%2Ffeed%2F%22%2C%22http%3A%2F%2Fexample.org%2Ffeeds%2Fatom.xml%22%5D%7D`
+  The encoded JSON object can now be appened to the URL as query string, e. g. 
+  
+  `http://feed.me/?%7B%22feeds%22%3A%5B%22http%3A%2F%2Fexmample.com%2Ffeed%2F%22%2C%22http%3A%2F%2Fexample.org%2Ffeeds%2Fatom.xml%22%5D%7D`
 
 ## Contributing
 
