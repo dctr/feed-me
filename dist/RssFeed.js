@@ -31,7 +31,7 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
           var source = undefined;
 
           source = feed.rss.channel;
-          this._title = source.title;
+          this._title = contentExtractor(source.title);
           this._entries = [];
 
           source.item.forEach(function (entry) {
