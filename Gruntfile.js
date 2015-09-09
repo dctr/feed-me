@@ -35,7 +35,7 @@ module.exports = function Gruntfile(grunt) {
             {
               expand: true,
               cwd: 'src/',
-              src: ['**/*.html'],
+              src: ['**/*.html', '**/*.css'],
               dest: 'dist/'
             }
           ]
