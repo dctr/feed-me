@@ -1,10 +1,6 @@
 # Feed Me
 
-*Feed Me* is a stateless feed aggregator. 
-
 **Note: This project is still under heavily development, things might change unexpectedly.**
-
-This app is [hosted via GitHub pages](http://dev.genitopia.org/feed-me/).
 
 ## Table of contents
 
@@ -15,6 +11,8 @@ This app is [hosted via GitHub pages](http://dev.genitopia.org/feed-me/).
 - [License](#license)
 
 ## About
+
+*Feed Me* is a stateless feed aggregator. 
 
 **What:** *Feed Me* is stateless, as is does not require any form of persistence.
 No account with login, no cookies or local storage, no sessions.
@@ -29,6 +27,10 @@ Having to log in each browser start was considered annoying.
 Also, it now is possible to share a certain setup via a simple link or bookmark it.
 
 ## Installation
+
+This app is already [hosted via GitHub pages](http://dev.genitopia.org/feed-me/).
+
+If you want to build and host it yourself:
 
 1. Build: `npm run grunt`
 2. Deploy: Copy `dist` folder
