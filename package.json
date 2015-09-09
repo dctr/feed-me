@@ -1,6 +1,6 @@
 {
   "name": "feed-me",
-  "version": "0.1.0",
+  "version": "0.0.0-snapshot",
   "description": "Stateless feed aggregator",
   "main": "src/app.js",
   "devDependencies": {
@@ -20,7 +20,7 @@
     "bower": "bower",
     "develop": "watchy -w src -- grunt build",
     "grunt": "grunt",
-    "postinstall": "npm upgrade && bower install && bower upgrade",
+    "postinstall": "npm upgrade && bower install && bower update",
     "test": "grunt test"
   },
   "repository": {
