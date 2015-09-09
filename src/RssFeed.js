@@ -8,7 +8,7 @@ export default class RssFeed extends AbstractFeed {
     let source;
 
     source = feed.rss.channel;
-    this._title = source.title;
+    this._title = contentExtractor(source.title);
     this._entries = [];
 
     source.item.forEach(entry => {
