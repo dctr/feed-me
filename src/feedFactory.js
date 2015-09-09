@@ -100,8 +100,6 @@ buildYqlUrl = (url, callback) => {
   query = 'select * from xml where url="' + url + '"';
   params = '&format=json&diagnostics=false&callback=' + callback;
 
-  console.log(base + encodeURIComponent(query) + params);
-
   return base + encodeURIComponent(query) + params;
 };
 
