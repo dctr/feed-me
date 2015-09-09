@@ -6,18 +6,17 @@
 
 This app is [hosted via GitHub pages](http://dev.genitopia.org/feed-me/).
 
-# Table of contents
+## Table of contents
 
 - [About](#about)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [Credits](#credits)
 - [License](#license)
 
-# About
+## About
 
-**What:** It is stateless, as is does not require any form of persistence.
+**What:** *Feed Me* is stateless, as is does not require any form of persistence.
 No account with login, no cookies or local storage, no sessions.
 
 **How:** All information needed by *Feed Me* is provided via a URL query string (the stuff after the "?" in the URL).
@@ -29,14 +28,14 @@ which e. g. delete session information on close.
 Having to log in each browser start was considered annoying.
 Also, it now is possible to share a certain setup via a simple link or bookmark it.
 
-# Installation
+## Installation
 
 1. Build: `npm run grunt`
 2. Deploy: Copy `dist` folder
 
 This project uses self-contained Node.js scripts, run `npm run` to get a complete list of all commands.
 
-# Usage
+## Usage
 
 All state is supplied to *Feed Me* via an encoded JSON object as URL query string.
 
@@ -62,7 +61,7 @@ All state is supplied to *Feed Me* via an encoded JSON object as URL query strin
   The encoded JSON object can now be appened to the URL as query string, 
   e. g. `http://feed.me/?%7B%22feeds%22%3A%5B%22http%3A%2F%2Fexmample.com%2Ffeed%2F%22%2C%22http%3A%2F%2Fexample.org%2Ffeeds%2Fatom.xml%22%5D%7D`
 
-# Contributing
+## Contributing
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
@@ -70,8 +69,6 @@ All state is supplied to *Feed Me* via an encoded JSON object as URL query strin
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request.
 
-# Credits
-
-# License
+## License
 
 *Feed Me* is released under the [MIT license](/LICENSE).
