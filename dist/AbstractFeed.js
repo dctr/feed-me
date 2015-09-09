@@ -11,20 +11,18 @@ System.register([], function (_export) {
     setters: [],
     execute: function () {
       AbstractFeed = (function () {
-        function AbstractFeed(feed) {
+        function AbstractFeed() {
           _classCallCheck(this, AbstractFeed);
-
-          this._feed = feed;
         }
 
         _createClass(AbstractFeed, [{
-          key: 'getEntries',
-          value: function getEntries() {
+          key: 'entries',
+          get: function get() {
             throw new Error('Pseudo-abstract class, method not implmemented');
           }
         }, {
-          key: 'getTitle',
-          value: function getTitle() {
+          key: 'title',
+          get: function get() {
             throw new Error('Pseudo-abstract class, method not implmemented');
           }
         }]);

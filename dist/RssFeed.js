@@ -22,37 +22,38 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
         _inherits(RssFeed, _AbstractFeed);
 
         function RssFeed(feed) {
+          var _this = this;
+
           _classCallCheck(this, RssFeed);
 
-          _get(Object.getPrototypeOf(RssFeed.prototype), 'constructor', this).call(this, feed);
-          this._source = feed.rss.channel;
+          _get(Object.getPrototypeOf(RssFeed.prototype), 'constructor', this).call(this);
+
+          var source = undefined;
+
+          source = feed.rss.channel;
+          this._title = source.title;
+          this._entries = [];
+
+          source.item.forEach(function (entry) {
+            _this._entries.push({
+              abstract: contentExtractor(entry.description),
+              dateTime: new Date(contentExtractor(entry.pubDate)),
+              feedTitle: _this.title,
+              link: contentExtractor(entry.link),
+              title: contentExtractor(entry.title)
+            });
+          });
         }
 
         _createClass(RssFeed, [{
-          key: 'getEntries',
-          value: function getEntries() {
-            var _this = this;
-
-            var result = undefined;
-
-            result = [];
-
-            this._source.item.forEach(function (entry) {
-              result.push({
-                abstract: contentExtractor(entry.description),
-                dateTime: new Date(contentExtractor(entry.pubDate)),
-                feedTitle: _this.getTitle(),
-                link: contentExtractor(entry.link),
-                title: contentExtractor(entry.title)
-              });
-            });
-
-            return result;
+          key: 'entries',
+          get: function get() {
+            return this._entries;
           }
         }, {
-          key: 'getTitle',
-          value: function getTitle() {
-            return contentExtractor(this._source.title);
+          key: 'title',
+          get: function get() {
+            return this._title;
           }
         }]);
 

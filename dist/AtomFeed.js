@@ -22,37 +22,38 @@ System.register(['AbstractFeed.js', 'contentExtractor.js'], function (_export) {
         _inherits(AtomFeed, _AbstractFeed);
 
         function AtomFeed(feed) {
+          var _this = this;
+
           _classCallCheck(this, AtomFeed);
 
-          _get(Object.getPrototypeOf(AtomFeed.prototype), 'constructor', this).call(this, feed);
-          this._source = feed.feed;
+          _get(Object.getPrototypeOf(AtomFeed.prototype), 'constructor', this).call(this);
+
+          var source = undefined;
+
+          source = feed.feed;
+          this._title = contentExtractor(source.title);
+          this._entries = [];
+
+          source.entry.forEach(function (entry) {
+            _this._entries.push({
+              abstract: contentExtractor(entry.summary),
+              dateTime: new Date(contentExtractor(entry.updated)),
+              feedTitle: _this.title,
+              link: contentExtractor(entry.link),
+              title: contentExtractor(entry.title)
+            });
+          });
         }
 
         _createClass(AtomFeed, [{
-          key: 'getEntries',
-          value: function getEntries() {
-            var _this = this;
-
-            var result = undefined;
-
-            result = [];
-
-            this._source.entry.forEach(function (entry) {
-              result.push({
-                abstract: contentExtractor(entry.summary),
-                dateTime: new Date(contentExtractor(entry.updated)),
-                feedTitle: _this.getTitle(),
-                link: contentExtractor(entry.link),
-                title: contentExtractor(entry.title)
-              });
-            });
-
-            return result;
+          key: 'entries',
+          get: function get() {
+            return this._entries;
           }
         }, {
-          key: 'getTitle',
-          value: function getTitle() {
-            return contentExtractor(this._source.title);
+          key: 'title',
+          get: function get() {
+            return this._title;
           }
         }]);
 
