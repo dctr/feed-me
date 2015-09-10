@@ -98,20 +98,3 @@ main = () => {
 };
 
 main();
-
-// myDefaultFeeds = {
-//  "feeds": [
-//    "http://rss.golem.de/rss.php?feed=ATOM1.0",
-//    "http://ticker.gulli.com/rss",
-//    "http://www.bbc.co.uk/blogs/doctorwho/atom",
-//    "http://www.heise.de/developer/rss/news-atom.xml",
-//    "http://www.heise.de/netze/rss/netze-atom.xml",
-//    "http://www.heise.de/newsticker/heise-atom.xml",
-//    "http://www.heise.de/open/news/news-atom.xml",
-//    "http://www.heise.de/security/news/news-atom.xml",
-//    "http://www.pro-linux.de/rss/1/4/atom_alles.xml",
-//    "https://mailbox.org/feed/",
-//    "https://www.archlinux.org/feeds/news/",
-//    "https://www.tagesschau.de/xml/rss2"
-//  ]
-// }
