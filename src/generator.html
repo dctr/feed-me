@@ -29,6 +29,8 @@
           <textarea id="j2q-out" class="form-control" rows="10" readonly></textarea>
         </div>
       </form>
+
+      <p><a id="j2q-link" href="#" target="_blank">Your <em>Feed Me</em> site</a></p>
     </div>
     <div class="col-md-6">
       <h2>Query Parameter to JSON Object</h2>
@@ -52,12 +54,15 @@
   j2qExecute = document.getElementById('j2q-execute');
   j2qIn = document.getElementById('j2q-in');
   j2qOut = document.getElementById('j2q-out');
+  j2qLink = document.getElementById('j2q-link');
   q2jExecute = document.getElementById('q2j-execute');
   q2jIn = document.getElementById('q2j-in');
   q2jOut = document.getElementById('q2j-out');
 
   j2qExecute.onclick = function j2q() {
-    j2qOut.value = window.encodeURIComponent(JSON.stringify(JSON.parse(j2qIn.value)));
+    var query = window.encodeURIComponent(JSON.stringify(JSON.parse(j2qIn.value)));
+    j2qOut.value = query;
+    j2qLink.href = '.?' + query;
   };
 
   q2jExecute.onclick = function q2j() {
