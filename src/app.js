@@ -1,18 +1,20 @@
-import feedFactory from 'feedFactory.js';
+import feedsReloader from 'feedsReloader.js';
 
 let
-  collectedEntries,
+  clearOutputArea,
   createOutputTag,
-  fetchCountDownLatch,
-  fetchFeed,
   main,
   outputElement,
   printFeedEntries
   ;
 
-collectedEntries = [];
-fetchCountDownLatch = 0;
 outputElement = document.getElementById('output');
+
+clearOutputArea = () => {
+  while (outputElement.firstChild) {
+    outputElement.removeChild(outputElement.firstChild);
+  }
+};
 
 createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
   let
@@ -43,32 +45,9 @@ createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
   return result;
 };
 
-fetchFeed = url => {
-  console.time(url);
-  fetchCountDownLatch++;
-  feedFactory(url).then(data => {
-    console.timeEnd(url);
-    console.log('Received %i entries for %s', data.entries.length, url);
-    collectedEntries = collectedEntries.concat(data.entries);
-    fetchCountDownLatch--;
-    if (fetchCountDownLatch === 0) {
-      printFeedEntries();
-    }
-  }).catch(reason => {
-    console.timeEnd(url);
-    console.error('Could not load %s; reason: %s, %o', url, reason.message, reason.data);
-    fetchCountDownLatch--;
-    if (fetchCountDownLatch === 0) {
-      printFeedEntries();
-    }
-  });
-};
-
-printFeedEntries = () => {
-  console.log('Sorting %i entries', collectedEntries.length);
-  collectedEntries.sort((val1, val2) => {
-    return val2.dateTime - val1.dateTime;
-  });
+printFeedEntries = collectedEntries => {
+  console.log('Clearing output area');
+  clearOutputArea();
   console.log('Printing entries');
   collectedEntries.forEach(feedEntry => {
     outputElement.appendChild(createOutputTag(
@@ -94,7 +73,7 @@ main = () => {
 
   queryObject = JSON.parse(window.decodeURIComponent(queryString));
   console.log('Query object: %o', queryObject);
-  queryObject.feeds.forEach(fetchFeed);
+  feedsReloader(queryObject, printFeedEntries);
 };
 
 main();
