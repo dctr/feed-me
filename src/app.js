@@ -2,21 +2,21 @@ import feedsReloader from 'feedsReloader.js';
 
 let
   clearOutputArea,
-  createOutputTag,
+  createOutputElement,
+  displayEntries,
   main,
-  outputElement,
-  printFeedEntries
+  outputRootNode
   ;
 
-outputElement = document.getElementById('output');
+outputRootNode = document.getElementById('output');
 
 clearOutputArea = () => {
-  while (outputElement.firstChild) {
-    outputElement.removeChild(outputElement.firstChild);
+  while (outputRootNode.firstChild) {
+    outputRootNode.removeChild(outputRootNode.firstChild);
   }
 };
 
-createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
+createOutputElement = (feedTitle, entryTitle, link, dateTime) => {
   let
     col1,
     col2,
@@ -45,14 +45,14 @@ createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
   return result;
 };
 
-printFeedEntries = collectedEntries => {
+displayEntries = entries => {
   clearOutputArea();
-  collectedEntries.forEach(feedEntry => {
-    outputElement.appendChild(createOutputTag(
-      feedEntry.feedTitle,
-      feedEntry.title,
-      feedEntry.link,
-      feedEntry.dateTime
+  entries.forEach(entry => {
+    outputRootNode.appendChild(createOutputElement(
+      entry.feedTitle,
+      entry.title,
+      entry.link,
+      entry.dateTime
     ));
   });
 };
@@ -64,13 +64,14 @@ main = () => {
     ;
 
   queryString = window.location.search.slice(1);
+
   if (!queryString) {
     console.log('No query provided');
     return;
   }
 
   queryObject = JSON.parse(window.decodeURIComponent(queryString));
-  feedsReloader(queryObject, printFeedEntries);
+  feedsReloader(queryObject, displayEntries);
 };
 
 main();

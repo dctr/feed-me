@@ -1,6 +1,9 @@
 import AbstractFeed from 'AbstractFeed.js';
 import contentExtractor from 'contentExtractor.js';
 
+/**
+ * Implementation of a web feed in the RSS format
+ */
 export default class RssFeed extends AbstractFeed {
   constructor(feed) {
     super();

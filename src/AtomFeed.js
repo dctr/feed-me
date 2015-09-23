@@ -1,6 +1,9 @@
 import AbstractFeed from 'AbstractFeed.js';
 import contentExtractor from 'contentExtractor.js';
 
+/**
+ * Implementation of a web feed in the Atom format
+ */
 export default class AtomFeed extends AbstractFeed {
   constructor(feed) {
     super();
