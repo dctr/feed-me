@@ -4,8 +4,7 @@ let
   collectedEntries,
   collectEntries,
   fetchedFeeds,
-  fetchFeed,
-  reportFeed
+  fetchFeed
   ;
 
 collectedEntries = [];
@@ -25,9 +24,9 @@ export default (spec, callback) => {
   args.reloadMS = args.reloadS * 1000;
 
   args.feeds.forEach(url => {
-    reportFeed(url, args.retries, callback);
+    fetchFeed(url, args.retries, callback);
     window.setInterval(() => {
-      reportFeed(url, args.retries, callback);
+      fetchFeed(url, args.retries, callback);
     }, args.reloadMS);
   });
 };
@@ -43,39 +42,24 @@ collectEntries = () => {
     }
   }
 
-  console.log('Collected %i entries', collectedEntries.length);
-
   collectedEntries.sort((entry0, entry1) => {
     return entry1.dateTime - entry0.dateTime;
   });
 };
 
-fetchFeed = url => {
-  return new Promise((resolve, reject) => {
-    console.time(url);
-    feedFactory(url).then(data => {
-      console.timeEnd(url);
-      resolve(data);
-    }).catch(reason => {
-      console.timeEnd(url);
-      reject(reason);
-    });
-  });
-};
-
-reportFeed = (url, retries, callback) => {
+fetchFeed = (url, retries, callback) => {
   if (retries < 0) {
-    console.error('Giving up fetching %s', url);
     return;
   }
 
-  fetchFeed(url).then(data => {
-    console.log('Received %i entries for %s', data.entries.length, url);
+  feedFactory(url).then(data => {
     fetchedFeeds[url] = data;
     collectEntries();
     callback(collectedEntries);
   }).catch(reason => {
-    console.error('Could not load %s; reason: %s, %o', url, reason.message, reason.data);
-    reportFeed(url, retries - 1, callback);
+    if (retries === 0) {
+      console.error('Could not load "%s"; reason: "%s"; %o', url, reason.message, reason.data);
+    }
+    fetchFeed(url, retries - 1, callback);
   });
 };

@@ -46,9 +46,7 @@ createOutputTag = (feedTitle, entryTitle, link, dateTime) => {
 };
 
 printFeedEntries = collectedEntries => {
-  console.log('Clearing output area');
   clearOutputArea();
-  console.log('Printing entries');
   collectedEntries.forEach(feedEntry => {
     outputElement.appendChild(createOutputTag(
       feedEntry.feedTitle,
@@ -72,7 +70,6 @@ main = () => {
   }
 
   queryObject = JSON.parse(window.decodeURIComponent(queryString));
-  console.log('Query object: %o', queryObject);
   feedsReloader(queryObject, printFeedEntries);
 };
 
